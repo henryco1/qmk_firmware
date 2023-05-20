@@ -5,14 +5,17 @@
 #define _NUMPAD   1
 #define _SYMBOL   2
 #define _HOMEMOD  3
+#define _SHORTCUT 4
 
-#define SPC_FN1   LT(1,KC_SPC)   // Tap for Space, hold for Layer 1
+#define SPC_FN1   LT(_NUMPAD, KC_SPC)     // Tap for Space, hold for Layer 1
+#define SHRT      MO(_SHORTCUT)           // Tap twice to toggle the Shortcut layer, otherwise hold and release to activate Shortcut layer
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   NUMPAD,
   SYMBOL,
   HOMEMOD,
+  SHORTCUT,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -25,9 +28,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_CAPS,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    TO(2),            KC_RGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, TO(2),
+     KC_CAPS, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    TO(2),             KC_RGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, TO(2),
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_LCTL, SPC_FN1, TT(3),                     TT(2),   KC_BSPC, KC_ENT
+                                    SHRT,    SPC_FN1, TT(3),                     TT(2),   KC_BSPC, KC_ENT
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -41,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TRNS, KC_GRV,  KC_1,    KC_2,    KC_3,    KC_EQL,  TO(2),            KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, KC_TRNS,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_TRNS, TO(0),   KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
+                                    SHRT,    TO(0),   KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -55,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TRNS, S(KC_GRV),S(KC_1),S(KC_2), S(KC_3), S(KC_EQL),TO(0),           KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_PSCR, TO(0),
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_DEL,  SPC_FN1, KC_TRNS,                   TO(0),   KC_TRNS, KC_TRNS
+                                    SHRT,    SPC_FN1, KC_TRNS,                   TO(0),   KC_TRNS, KC_TRNS
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -69,7 +72,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TRNS, _______, _______, _______, _______, QK_BOOT, KC_TRNS,          KC_TRNS, _______, _______, _______, _______, _______, TO(0),
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_TRNS, SPC_FN1, KC_TRNS,                   TO(2),   KC_TRNS, KC_TRNS
+                                    SHRT,    SPC_FN1, KC_TRNS,                   TO(2),   KC_TRNS, KC_TRNS
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
+  [_SHORTCUT] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     KC_ESC,  C(KC_1), C(KC_2), C(KC_3), C(KC_4), C(KC_5),                            C(KC_6), C(KC_7), C(KC_8), C(KC_9), C(KC_0), C(KC_MINS),
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+    C(KC_GRV),C(KC_Q), C(KC_W), C(KC_E), C(KC_R), C(KC_T),                            C(KC_Y), C(KC_U), C(KC_I), C(KC_O), C(KC_P), C(KC_BSLS),
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, C(KC_A), C(KC_S), C(KC_D), C(KC_F), C(KC_G),                            C(KC_H), C(KC_J), C(KC_K), C(KC_L),C(KC_SCLN),C(KC_QUOT),
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), C(KC_B), TO(2),            C(KC_RGUI),C(KC_N),C(KC_M),C(KC_COMM),C(KC_DOT),C(KC_SLSH),TO(0),
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    SHRT,    SPC_FN1, TT(3),                     TT(2),   KC_BSPC, KC_ENT
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   )
 };
@@ -107,6 +123,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_HOMEMOD);
       } else {
         layer_off(_HOMEMOD);
+      }
+      return false;
+      break;
+    case SHORTCUT:
+      if (record->event.pressed) {
+        layer_on(_SHORTCUT);
+      } else {
+        layer_off(_SHORTCUT);
       }
       return false;
       break;
