@@ -1,22 +1,45 @@
 #include QMK_KEYBOARD_H
 
+//========================================
+// Constant Defines
+//========================================
 
+// Layer Defines
 #define _QWERTY   0
-#define _NUMPAD   1
-#define _SYMBOL   2
-#define _HOMEMOD  3
-#define _SHORTCUT 4
+#define _NAVIGATE 1
+#define _NUMPAD   2
+#define _SYMBOL   3
+#define _HOMEMOD  4
+#define _SHORTCUT 5
 
-#define SPC_FN1   LT(_NUMPAD, KC_SPC)     // Tap for Space, hold for Layer 1
-#define SHRT      MO(_SHORTCUT)           // Tap twice to toggle the Shortcut layer, otherwise hold and release to activate Shortcut layer
+// Layer Shortcuts
+#define L_QWRTY      TO(_QWERTY)                // Toggle for base layer
+#define SPC_NAV      LT(_NAVIGATE, KC_SPC)      // Tap for Space, hold for the Navigate layer
+#define BSPC_NUM     LT(_NUMPAD, KC_BSPC)       // Tap for Backspace, hold for the Numpad layer
+#define L_SYMB_TT    TT(_SYMBOL)                // Tap Toggle for the Symbol layer
+#define L_SYMB_TO    TO(_SYMBOL)                // Tap Toggle for the Symbol layer
+#define L_HOME       TT( _HOMEMOD)              // Tap Toggle for the Homemod layer
+#define L_SHRT       MO(_SHORTCUT)              // Tap twice to toggle the Shortcut layer, otherwise hold and release to activate Shortcut layer
 
+// Keycode Shortcuts
+#define G_TAB        G(KC_TAB)   
+#define S_TAB        S(KC_TAB)
+#define C_TAB        C(KC_TAB)    
+#define CS_TAB       C(S(KC_TAB))
+
+// Layer Enums
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
+  NAVIGATE,
   NUMPAD,
   SYMBOL,
   HOMEMOD,
   SHORTCUT,
 };
+
+//========================================
+// Keymap Declaration
+//========================================
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -28,9 +51,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_CAPS, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    TO(2),             KC_RGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, TO(2),
+     KC_CAPS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    L_SYMB_TO,        KC_RGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, L_SYMB_TO,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    SHRT,    SPC_FN1, TT(3),                     TT(2),   KC_BSPC, KC_ENT
+                                    L_SHRT,  SPC_NAV, L_HOME,                    L_SYMB_TT,BSPC_NUM,KC_ENT
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
+
+  [_NAVIGATE] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     KC_ESC,  _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______,  _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, _______, CS_TAB,  G_TAB,   C_TAB,   _______,                            _______, _______, _______, _______, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, _______, S_TAB,   KC_LALT, KC_TAB,  _______,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, _______, _______, _______, _______, _______, L_SYMB_TO,        KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    L_SHRT,  SPC_NAV, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -42,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TRNS, KC_MINS, KC_4,    KC_5,    KC_6,    KC_RBRC,                            _______, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI,  KC_GRV,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TRNS, KC_GRV,  KC_1,    KC_2,    KC_3,    KC_EQL,  TO(2),            KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, KC_TRNS,
+     KC_TRNS, KC_GRV,  KC_1,    KC_2,    KC_3,    KC_EQL,  L_SYMB_TO,        KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, KC_TRNS,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    SHRT,    TO(0),   KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
+                                    L_SHRT,  L_QWRTY, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -56,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TAB,  KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, S(KC_RBRC),                         KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TRNS, S(KC_GRV),S(KC_1),S(KC_2), S(KC_3), S(KC_EQL),TO(0),           KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_PSCR, TO(0),
+     KC_TRNS, S(KC_GRV),S(KC_1),S(KC_2), S(KC_3), S(KC_EQL),L_QWRTY,         KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_PSCR, L_QWRTY,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    SHRT,    SPC_FN1, KC_TRNS,                   TO(0),   KC_TRNS, KC_TRNS
+                                    L_SHRT,  SPC_NAV, KC_TRNS,                   L_QWRTY,   KC_TRNS, KC_TRNS
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -70,9 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                            _______, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TRNS, _______, _______, _______, _______, QK_BOOT, KC_TRNS,          KC_TRNS, _______, _______, _______, _______, _______, TO(0),
+     KC_TRNS, _______, _______, _______, _______, QK_BOOT, KC_TRNS,          KC_TRNS, _______, _______, _______, _______, _______, L_QWRTY,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    SHRT,    SPC_FN1, KC_TRNS,                   TO(2),   KC_TRNS, KC_TRNS
+                                    L_SHRT,  SPC_NAV, KC_TRNS,                   L_SYMB_TO,KC_TRNS, KC_TRNS
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
   [_SHORTCUT] = LAYOUT(
@@ -83,12 +120,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______, C(KC_A), C(KC_S), C(KC_D), C(KC_F), C(KC_G),                            C(KC_H), C(KC_J), C(KC_K), C(KC_L),C(KC_SCLN),C(KC_QUOT),
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), C(KC_B), TO(2),            C(KC_RGUI),C(KC_N),C(KC_M),C(KC_COMM),C(KC_DOT),C(KC_SLSH),TO(0),
+     _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), C(KC_B), L_SYMB_TO,        C(KC_RGUI),C(KC_N),C(KC_M),C(KC_COMM),C(KC_DOT),C(KC_SLSH),L_QWRTY,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    SHRT,    SPC_FN1, TT(3),                     TT(2),   KC_BSPC, KC_ENT
+                                    L_SHRT,  SPC_NAV, L_HOME,                    L_SYMB_TT,KC_BSPC, KC_ENT
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   )
 };
+
+//========================================
+// Keymap Main Handler
+//========================================
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -98,23 +139,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case NUMPAD:
+    case NAVIGATE:
       if (record->event.pressed) {
-        layer_on(_NUMPAD);
-        update_tri_layer(_NUMPAD, _SYMBOL, _HOMEMOD);
+        layer_on(_NAVIGATE);
+        update_tri_layer(_NAVIGATE, _SYMBOL, _HOMEMOD);
       } else {
-        layer_off(_NUMPAD);
-        update_tri_layer(_NUMPAD, _SYMBOL, _HOMEMOD);
+        layer_off(_NAVIGATE);
+        update_tri_layer(_NAVIGATE, _SYMBOL, _HOMEMOD);
       }
       return false;
       break;
+    case NUMPAD:
+      if (record->event.pressed) {
+        layer_on(_NUMPAD);
+      } else {
+        layer_off(_NUMPAD);
+      }
+      return false;
+      break;      
     case SYMBOL:
       if (record->event.pressed) {
         layer_on(_SYMBOL);
-        update_tri_layer(_NUMPAD, _SYMBOL, _HOMEMOD);
+        update_tri_layer(_NAVIGATE, _SYMBOL, _HOMEMOD);
       } else {
         layer_off(_SYMBOL);
-        update_tri_layer(_NUMPAD, _SYMBOL, _HOMEMOD);
+        update_tri_layer(_NAVIGATE, _SYMBOL, _HOMEMOD);
       }
       return false;
       break;
