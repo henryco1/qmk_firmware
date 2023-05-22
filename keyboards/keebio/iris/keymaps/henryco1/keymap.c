@@ -5,13 +5,13 @@
 //========================================
 
 // Layer Defines
-#define _QWERTY         0
-#define _NAVIGATE       1
-#define _NUMPAD         2
-#define _SYMBOL_LEFT    3
-#define _SYMBOL_RIGHT   4
-#define _HOMEMOD        5
-#define _SHORTCUT       6
+#define _QWERTY         (0U)
+#define _NAVIGATE       (1U)
+#define _NUMPAD         (2U)
+#define _SYMBOL_LEFT    (3U)
+#define _SYMBOL_RIGHT   (4U)
+#define _HOMEMOD        (5U)
+#define _SHORTCUT       (6U)
 
 // Layer Shortcuts
 #define L_QWRTY      TO(_QWERTY)                   // Toggle for base layer
@@ -20,7 +20,11 @@
 #define ENT_NUM      LT(_NUMPAD, KC_ENT)           // Tap for Enter, hold for the Numpad layer
 #define L_NAV        TT(_NAVIGATE)                 // Tap Toggle for the Navigate layer
 #define L_HOME       TT(_HOMEMOD)                  // Tap Toggle for the Homemod layer
-#define L_SHCL       LT(_SHORTCUT, KC_CAPS)        // Tap for Caps Lock, hold for the Shortcut layer
+#define L_SHCL       LT(_SHORTCUT, KC_CAPS)        // Tap for Capsword, hold for the Shortcut layer
+
+// One shot mods
+#define OS_LSFT      OSM(MOD_LSFT)
+#define OS_RSFT      OSM(MOD_RSFT)
 
 // Keycode Shortcuts
 #define G_TAB        G(KC_TAB)   
@@ -53,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_CAPS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    L_QWRTY,          KC_RGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, L_QWRTY,
+     OS_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    L_QWRTY,          KC_RGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OS_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     L_SHCL,  SPC_SYML,L_NAV,                     L_NAV,   BSPC_SYMR,ENT_NUM
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -107,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______, _______, _______, _______, _______, _______,                            _______, KC_UNDS, KC_PIPE, KC_QUOT, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, KC_CIRC, KC_ASTR, KC_AMPR, _______, _______,                            KC_HASH, KC_TILD, KC_SLSH, KC_DQUO, KC_DLR,  _______,
+     _______, KC_CIRC, KC_ASTR, KC_AMPR, KC_QUES, _______,                            KC_HASH, KC_TILD, KC_SLSH, KC_DQUO, KC_DLR,  _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______, _______, _______, _______, _______, _______, L_QWRTY,          _______, _______, KC_MINS, KC_BSLS, KC_GRV,  _______,  L_QWRTY,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
