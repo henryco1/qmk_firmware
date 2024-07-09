@@ -12,9 +12,10 @@
 #define _SYMBOL_RIGHT   (4U)
 #define _FUNCTION       (5U)
 #define _SHORTCUT       (6U)
+#define _COLEMAK        (7U)
 
 // Layer Shortcuts
-#define L_QWRTY      TO(_QWERTY)                   // Activates base layer and deactivates all others
+#define L_QWRTY      DF(_QWERTY)                   // Activates base layer and deactivates all others
 #define SPC_SYML     LT(_NAVIGATE, KC_SPC)         // Tap for Space, hold for the Nav Left layer
 #define BSPC_SYMR    LT(_NAVIGATE, KC_BSPC)        // Tap for Backspace, hold for Nav Right layer
 #define ENT_NUM      LT(_NUMPAD, KC_ENT)           // Tap for Enter, hold for the Numpad layer
@@ -22,6 +23,7 @@
 #define R_NAV        LT(_SYMBOL_RIGHT, _FUNCTION)  // Tap for the Symbol Right layer, hold for the Function layer
 #define L_HOME       TT(_FUNCTION)                 // Tap Toggle for the Function layer
 #define L_SHCL       LT(_SHORTCUT, KC_CAPS)        // Tap for Capsword, hold for the Shortcut layer
+#define R_COLEM      DF(_COLEMAK)
 
 // 
 
@@ -44,6 +46,7 @@ enum custom_keycodes {
   SYMBOL_RIGHT,
   FUNCTION,
   SHORTCUT,
+  COLEMAK
 };
 
 //========================================
@@ -60,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     OS_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    L_QWRTY,          KC_RGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OS_RSFT,
+     OS_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    L_QWRTY,          R_COLEM, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OS_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     L_SHCL,  SPC_SYML,L_NAV,                     R_NAV,   BSPC_SYMR,ENT_NUM
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -144,11 +147,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______, C(KC_A), C(KC_S), C(KC_D), C(KC_F), C(KC_G),                            C(KC_H), C(KC_J), C(KC_K), C(KC_L),C(KC_SCLN),C(KC_QUOT),
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), C(KC_B), L_QWRTY,          C(KC_RGUI),C(KC_N),C(KC_M),C(KC_COMM),C(KC_DOT),C(KC_SLSH),L_QWRTY,
+     _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), C(KC_B), L_QWRTY,          KC_TRNS, C(KC_N),C(KC_M),C(KC_COMM),C(KC_DOT),C(KC_SLSH),L_QWRTY,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     L_SHCL,  SPC_SYML,L_NAV,                     R_NAV,   BSPC_SYMR,ENT_NUM
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
-  )
+  ),
+  [_COLEMAK] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_LSFT, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                               KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                               KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_GRV,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     OS_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    L_QWRTY,          R_COLEM, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OS_RSFT,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    L_SHCL,  SPC_SYML,L_NAV,                     R_NAV,   BSPC_SYMR,ENT_NUM
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
 };
 
 //========================================
