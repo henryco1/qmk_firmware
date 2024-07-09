@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "qmk-firmware"
+version = "0.25.10"
+description = "qmk poetry holds qmk cli"
+authors = ["Henry Co <henryco4388@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+qmk = "^1.1.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

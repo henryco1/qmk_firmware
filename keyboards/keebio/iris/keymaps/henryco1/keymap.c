@@ -18,7 +18,7 @@
 #define SPC_SYML     LT(_SYMBOL_LEFT, KC_SPC)      // Tap for Space, hold for the Symbol Left layer
 #define BSPC_SYMR    LT(_SYMBOL_RIGHT, KC_BSPC)    // Tap for Backspace, hold for the Symbol Right layer
 #define ENT_NUM      LT(_NUMPAD, KC_ENT)           // Tap for Enter, hold for the Numpad layer
-#define L_NAV        TT(_NAVIGATE)                 // Tap Toggle for the Navigate layer
+#define L_NAV        TO(_NAVIGATE)                 // Tap Toggle for the Navigate layer
 #define L_HOME       TT(_HOMEMOD)                  // Tap Toggle for the Homemod layer
 #define L_SHCL       LT(_SHORTCUT, KC_CAPS)        // Tap for Capsword, hold for the Shortcut layer
 
