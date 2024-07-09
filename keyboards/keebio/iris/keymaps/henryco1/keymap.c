@@ -14,13 +14,15 @@
 #define _SHORTCUT       (6U)
 
 // Layer Shortcuts
-#define L_QWRTY      TO(_QWERTY)                   // Toggle for base layer
-#define SPC_SYML     LT(_SYMBOL_LEFT, KC_SPC)      // Tap for Space, hold for the Symbol Left layer
-#define BSPC_SYMR    LT(_SYMBOL_RIGHT, KC_BSPC)    // Tap for Backspace, hold for the Symbol Right layer
+#define L_QWRTY      TO(_QWERTY)                   // Activates base layer and deactivates all others
+#define SPC_SYML     LT(_NAVIGATE, KC_SPC)         // Tap for Space, hold for the Nav Left layer
+#define BSPC_SYMR    LT(_NAVIGATE, KC_BSPC)        // Tap for Backspace, hold for Nav Right layer
 #define ENT_NUM      LT(_NUMPAD, KC_ENT)           // Tap for Enter, hold for the Numpad layer
-#define L_NAV        TO(_NAVIGATE)                 // Tap Toggle for the Navigate layer
+#define L_NAV        LT(_SYMBOL_LEFT, _HOMEMOD)    // Tap for the Symbol Left layer, hold for the Homemod layer
+#define R_NAV        LT(_SYMBOL_RIGHT, _HOMEMOD)   // Tap for the Symbol Right layer, hold for the Homemod layer
 #define L_HOME       TT(_HOMEMOD)                  // Tap Toggle for the Homemod layer
 #define L_SHCL       LT(_SHORTCUT, KC_CAPS)        // Tap for Capsword, hold for the Shortcut layer
+
 
 // One shot mods
 #define OS_LSFT      OSM(MOD_LSFT)
@@ -59,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      OS_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    L_QWRTY,          KC_RGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OS_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    L_SHCL,  SPC_SYML,L_NAV,                     L_NAV,   BSPC_SYMR,ENT_NUM
+                                    L_SHCL,  SPC_SYML,L_NAV,                     R_NAV,   BSPC_SYMR,ENT_NUM
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -73,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______, _______, _______, _______, _______, _______, L_QWRTY,          KC_TRNS, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    L_SHCL,  SPC_SYML, L_NAV,                    L_NAV,   BSPC_SYMR,ENT_NUM
+                                    L_SHCL,  SPC_SYML, L_NAV,                    R_NAV,   BSPC_SYMR,ENT_NUM
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -87,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______, KC_PDOT, KC_4,    KC_5,    KC_6,    KC_EQL,  L_QWRTY,          _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    L_SHCL,  SPC_SYML, L_NAV,                    L_NAV,   BSPC_SYMR,ENT_NUM
+                                    L_SHCL,  SPC_SYML, L_NAV,                    R_NAV,   BSPC_SYMR,ENT_NUM
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -143,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), C(KC_B), L_QWRTY,          C(KC_RGUI),C(KC_N),C(KC_M),C(KC_COMM),C(KC_DOT),C(KC_SLSH),L_QWRTY,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    L_SHCL,  SPC_SYML,L_NAV,                     L_NAV,   BSPC_SYMR,ENT_NUM
+                                    L_SHCL,  SPC_SYML,L_NAV,                     R_NAV,   BSPC_SYMR,ENT_NUM
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   )
 };
