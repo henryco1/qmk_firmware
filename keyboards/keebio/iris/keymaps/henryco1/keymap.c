@@ -10,7 +10,7 @@
 #define _NUMPAD         (2U)
 #define _SYMBOL_LEFT    (3U)
 #define _SYMBOL_RIGHT   (4U)
-#define _FUNCTION        (5U)
+#define _FUNCTION       (5U)
 #define _SHORTCUT       (6U)
 
 // Layer Shortcuts
@@ -23,6 +23,7 @@
 #define L_HOME       TT(_FUNCTION)                 // Tap Toggle for the Function layer
 #define L_SHCL       LT(_SHORTCUT, KC_CAPS)        // Tap for Capsword, hold for the Shortcut layer
 
+// 
 
 // One shot mods
 #define OS_LSFT      OSM(MOD_LSFT)
@@ -41,7 +42,7 @@ enum custom_keycodes {
   NUMPAD,
   SYMBOL_LEFT,
   SYMBOL_RIGHT,
-  Function,
+  FUNCTION,
   SHORTCUT,
 };
 
@@ -194,7 +195,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case Function:
+    case FUNCTION:
       if (record->event.pressed) {
         layer_on(_FUNCTION);
       } else {
