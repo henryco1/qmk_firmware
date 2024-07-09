@@ -10,7 +10,7 @@
 #define _NUMPAD         (2U)
 #define _SYMBOL_LEFT    (3U)
 #define _SYMBOL_RIGHT   (4U)
-#define _HOMEMOD        (5U)
+#define _FUNCTION        (5U)
 #define _SHORTCUT       (6U)
 
 // Layer Shortcuts
@@ -18,9 +18,9 @@
 #define SPC_SYML     LT(_NAVIGATE, KC_SPC)         // Tap for Space, hold for the Nav Left layer
 #define BSPC_SYMR    LT(_NAVIGATE, KC_BSPC)        // Tap for Backspace, hold for Nav Right layer
 #define ENT_NUM      LT(_NUMPAD, KC_ENT)           // Tap for Enter, hold for the Numpad layer
-#define L_NAV        LT(_SYMBOL_LEFT, _HOMEMOD)    // Tap for the Symbol Left layer, hold for the Homemod layer
-#define R_NAV        LT(_SYMBOL_RIGHT, _HOMEMOD)   // Tap for the Symbol Right layer, hold for the Homemod layer
-#define L_HOME       TT(_HOMEMOD)                  // Tap Toggle for the Homemod layer
+#define L_NAV        LT(_SYMBOL_LEFT, _FUNCTION)   // Tap for the Symbol Left layer, hold for the Function layer
+#define R_NAV        LT(_SYMBOL_RIGHT, _FUNCTION)  // Tap for the Symbol Right layer, hold for the Function layer
+#define L_HOME       TT(_FUNCTION)                 // Tap Toggle for the Function layer
 #define L_SHCL       LT(_SHORTCUT, KC_CAPS)        // Tap for Capsword, hold for the Shortcut layer
 
 
@@ -41,7 +41,7 @@ enum custom_keycodes {
   NUMPAD,
   SYMBOL_LEFT,
   SYMBOL_RIGHT,
-  HOMEMOD,
+  Function,
   SHORTCUT,
 };
 
@@ -122,15 +122,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  [_HOMEMOD] = LAYOUT(
+  [_FUNCTION] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              _______, _______, _______, _______, _______, _______,
+     QK_BOOT, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_MINS, _______, _______, _______, _______,  _______,                            _______, _______, _______, _______, _______, _______,
+     KC_MINS, _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,                             _______, _______, _______, _______, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                            _______, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI, _______,
+     KC_TRNS, KC_LGUI, KC_F1,   KC_F2,   KC_F3,   KC_F4,                              _______, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TRNS, _______, _______, _______, _______, QK_BOOT, L_QWRTY,          KC_TRNS, _______, _______, _______, _______, _______, L_QWRTY,
+     KC_TRNS, _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   L_QWRTY,          KC_TRNS, _______, _______, _______, _______, _______, L_QWRTY,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     L_SHCL,  SPC_SYML,L_NAV,                     L_NAV,   BSPC_SYMR,ENT_NUM
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -194,11 +194,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case HOMEMOD:
+    case Function:
       if (record->event.pressed) {
-        layer_on(_HOMEMOD);
+        layer_on(_FUNCTION);
       } else {
-        layer_off(_HOMEMOD);
+        layer_off(_FUNCTION);
       }
       return false;
       break;
